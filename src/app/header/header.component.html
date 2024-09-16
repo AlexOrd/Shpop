@@ -23,18 +23,20 @@
     <div class="maphide">
       <img src="../../assets/img/mappoint.svg">
       <p class="authheader_text">Find Your City</p>
+      <!-- <agm-map [latitude]="lat" [longitude]="lng">
+        <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+      </agm-map> -->
     </div>
     <div class="verticalline"></div>
     <div class="signin">
       <p class="authheader_text_signin">Sign In</p>
     </div>
-    <div>
-      <h1>Counter: {{currentCount}}</h1>
-    </div>
     <div class="verticalline"></div>
     <div class="countgoods">
       <img src="../../assets/img/heart.svg">
       <img src="../../assets/img/shopping-basket.svg">
+      <p class="countOf" id="like">{{countLike}}</p>
+      <p class="countOf" id="cart">{{countCart}}</p>
     </div>
   </div>
 </div>
@@ -186,3 +188,4 @@
 </div>
 
 <!-- about and delivery -->
+

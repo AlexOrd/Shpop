@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AllcoffeeService } from '../allcoffee.service';
+import { Subscriber } from 'rxjs';
 
 @Component({
   selector: 'app-coffee',
   templateUrl: './coffee.component.html',
-  styleUrls: ['./coffee.component.scss'],
-  providers: [AllcoffeeService]
+  styleUrls: ['./coffee.component.scss']
 })
 export class CoffeeComponent implements OnInit {
 
@@ -36,31 +36,94 @@ export class CoffeeComponent implements OnInit {
   statusType: boolean = false;
   statusCountry: boolean = false;
   statusOffer: boolean = false;
-  coffees;
+  counterBlock: boolean = false;
+
+  subscriptionCart;   // for => countCart
+  subscriptionLike;   // for => countLike
+  countLike;          // value of countLike in real time
+  countCart;          // value of countCart in real time
+  coffees = [];            // array with coffee from service
+
+  subCart;
+  viewCart = [];      // cart with goods in real time in service  
+  modCart;            // help var for send data to service 
 
   constructor(private allCoffee: AllcoffeeService) { }
 
   ngOnInit() {
-    this.coffees = this.allCoffee.getCoffees();
+    this.coffees = this.allCoffee.getCoffees();     
+    
+    this.subscriptionCart = this.allCoffee.getCountCart().subscribe(
+      (res) => {
+        this.countCart = res.value;
+      });
+
+      this.subscriptionLike = this.allCoffee.getCountLike().subscribe(
+        (res) => {
+          this.countLike = res.value;
+        });
+
+        this.subCart = this.allCoffee.getCart().subscribe(
+          (res) => {
+            this.viewCart = res;
+          }
+        );
   }
 
-  showFormat() {
-    this.statusFormat = !this.statusFormat;
-  }
+  
+      addData(item)  {                              //add coffee to cart
+        this.modCart = this.viewCart.push(this.coffees[item-1]);
+        this.allCoffee.addCart(this.modCart);
+      }
+          
+      
 
-  showDegree() {
-    this.statusDegree = !this.statusDegree;
-  }
+  
+      plusLike() {                                  
+        this.allCoffee.setCountLike(this.countLike + 1);
+      }
 
-  showType() {
-    this.statusType = !this.statusType;
-  }
+      minusLike() {
+        if(this.countLike > 0) {
+          this.allCoffee.setCountLike(this.countLike - 1);
+        }
+      }
 
-  showCountry() {
-    this.statusCountry = !this.statusCountry;
-  }
+      plusCart() {
+        this.allCoffee.setCountCart(this.countCart + 1);
+      }
 
-  showOffer() {
-    this.statusOffer = !this.statusOffer;
-  }
+      minusCart() {
+        if(this.countCart > 0) {
+          this.allCoffee.setCountCart(this.countCart - 1);
+        }
+      }
+
+      // slideConfig = {"slidesToShow": 4, "slidesToScroll": 1};
+      
+
+      showFormat() {
+        this.statusFormat = !this.statusFormat;
+      }
+
+      showDegree() {
+        this.statusDegree = !this.statusDegree;
+      }
+
+      showType() {
+        this.statusType = !this.statusType;
+      }
+
+      showCountry() {
+        this.statusCountry = !this.statusCountry;
+      }
+
+      showOffer() {
+        this.statusOffer = !this.statusOffer;
+      }
+
+      showAddCount() {
+        this.counterBlock = !this.counterBlock;
+      }
+  
 }

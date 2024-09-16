@@ -15,6 +15,10 @@ $fontMontserat:'Montserrat', sans-serif;
 $fontRaleway: 'Raleway', sans-serif;
 $fontRibeye: 'Ribeye Marrow', cursive;
 
+.countOf {
+    font-family: $fontMontserat;
+}
+
 #search {
     font-family: $fontRaleway;
 }
@@ -156,4 +160,21 @@ $fontRibeye: 'Ribeye Marrow', cursive;
 
 .nameofchoose  {
     font-family: $fontRaleway; 
+}
+
+.charcter {
+    font-family: $fontRaleway; 
+}
+
+.price {
+    font-family: $fontMontserat;
+}
+
+#gram {
+    font-family: $fontMontserat;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    color: #33402F;
 }

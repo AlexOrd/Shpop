@@ -100,15 +100,52 @@
             </div>
         </div>
     </div>
- 
+
     <div class="sidecartcoffee">
         <div class="cartofcoffe" *ngFor='let coffee of coffees'>
             <img class="iamgeofcoffee" [src]='coffee.image' [routerLink]="[ '/coffeecart',coffee.id]">
-            <h3 class="nameofcoffee">{{coffee.name}}</h3>
-            <p class="beentype">{{coffee.been}}</p>
-            <p class="color">{{coffee.color}}</p>
-            <p class="type">{{coffee.types}}</p>
-            <p class="country">{{coffee.country}}</p>
+            <div class="aboutallcoffee">
+                <h3 class="nameofcoffee" (click)='addData(coffee.id)'>{{coffee.name}}</h3>
+                <p class="charcter">● {{coffee.been | uppercase}}</p>
+                <p class="charcter">● {{coffee.color | uppercase}}</p>
+                <p class="charcter">● {{coffee.types | uppercase}}</p>
+                <p class="charcter">● {{coffee.country | uppercase}}</p>
+                <div class="priceandlike">
+                    <p class="price">{{coffee.price}} <span id="gram">/ 100g</span></p>
+                    <div class="like active_like"></div>
+                </div>
+
+                <div class="dropaddtocart" *ngIf="coffee.counterBlock">
+                    <button class="butt buttofcoffeecart">add to cart</button>
+                    <div class="countofgood">
+                        <span id="minuscount" (click)='minusCart()'>-</span>
+                        <p class="countdigit>">1</p>
+                        <span id="pluscount" (click)='plusCart()'>+</span>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
+</div>
+
+<div class="carusel">
+    <h3 class="carusel_name">Recently Viewed</h3>
+    <!-- <ngx-slick-carousel 
+    class="carousel"  
+    #slickModal="slick-carousel" 
+    [config]="slideConfig" 
+    > -->
+    <div *ngFor="let cart of viewCart" class="slide cartofcoffe">
+        <img class="iamgeofcoffee" [src]='cart.image' [routerLink]="[ '/coffeecart',cart.id]">
+        <div class="aboutallcoffee">
+            <h3 class="nameofcoffee">{{cart.name}}</h3>
+            <div class="priceandlike">
+                <p class="price">{{cart.price}} <span id="gram">/ 100g</span></p>
+                <div class="like active_like"></div>
+            </div>
+            <button class="butt buttofcoffeecart">add to cart</button>
+        </div>
+    </div>
+    <!-- ngxSlickItem </ngx-slick-carousel> -->
 </div>

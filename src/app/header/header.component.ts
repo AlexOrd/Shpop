@@ -7,9 +7,7 @@ import { AllcoffeeService } from '../allcoffee.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  
-  subscription;
-  currentCount;
+
   showTea: boolean = false;
   showCoffee: boolean = false;
   showSnack: boolean = false;
@@ -18,22 +16,30 @@ export class HeaderComponent implements OnInit {
   showReviews: boolean = false;
   showLang: boolean = false;
 
+  countLike;
+  countCart;
+  subForLike;
+  subForCart;
 
-  constructor(
-    private cardService: AllcoffeeService
-  ) { }
+  constructor(private allCoffee: AllcoffeeService) { }
+
+  lat: number = 51.678418;
+  lng: number = 7.809007;
 
   ngOnInit() {
-    this.subscription = this.cardService.getCount().subscribe(
+    this.subForLike = this.allCoffee.getCountLike().subscribe(
       (res) => {
-        this.currentCount = res.value;
-      },
-      (err) => {
-        console.error(`An error occurred: ${err.message}`);
+        this.countLike = res.value;
+      }
+    );
+
+    this.subForCart = this.allCoffee.getCountCart().subscribe(
+      (res) => {
+        this.countCart = res.value;
       }
     );
   }
-  
+
   showTeaBlock() {
     this.showTea = !this.showTea;
   }
